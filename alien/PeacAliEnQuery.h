@@ -23,6 +23,24 @@ public:
     ~PeacAliEnQuery();
 
     void Print() const;
+
+    // xrdgsiproxy stuff
+    bool          IsProxyValid();
+    bool          ProxyInit ();
+
+    // alien token stuff
+    bool          IsTokenValid();
+    bool          TokenInit ();
+    bool          TokenDestroy ();
+    int           DoAliEnTokenInit ();
+
+    // alien stuff
+    int           ConnectToAliEn();
+
+    int           FillListOfFileNamesFromAliEnUsingWhereis ( string fname );
+
+
+    void SetUser(const char* user) { fAliEnUserName = user; }
 //
 //    virtual int       DoAuthenticate ( bool showProcess );
 //
@@ -53,21 +71,16 @@ private:
 //
 //    static void     CallAliEnTimeout(int i);
 //
-//    GapiUI          *fAliEn;
-//    bool            fIsAliEnConnected;
+    GapiUI          *fAliEn;
+    bool            fIsAliEnConnected;
 //
-//    // Authentication: check for token and proxy validity, and renew them
-//    int           DoAliEnTokenInit ( bool showProcess );
-//    bool          IsTokenValid(bool showProcess);
-//    bool          TokenInit ( bool showProcess );
-//    bool          TokenDestroy ( bool showProcess );
-//    bool          IsProxyValid(bool showProcess);
-//    bool          ProxyInit ( bool showProcess );
+    // Authentication: check for token and proxy validity, and renew them
+
+//public:
 //
-//    int           ConnectToAliEn();
 //    int           DoSetAliEnVariables();
 //
-//    int           FillListOfFileNamesFromAliEnUsingWhereis ( string fname );
+
 //
 //    int           DoAliEnCp ( string from,string to );
 };
