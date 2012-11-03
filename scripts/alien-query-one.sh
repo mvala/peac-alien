@@ -8,7 +8,7 @@ if [ ! -f $PROJECT_DIR/bin/alien-query ];then
   echo "alien-query was not found !!! Please compile it first !!!"
 fi
 
-URLS=$($PROJECT_DIR/bin/alien-query -t -d 0 -rand -rmdupli)
+URLS=$($PROJECT_DIR/bin/alien-query -t -d 0 -rand -rmdupli -u $USER)
 
 for url in $URLS; do
   echo "Doing  xrdcp -f $url /tmp/test.zip ..."
