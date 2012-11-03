@@ -264,8 +264,7 @@ bool PeacAliEnQuery::TokenInit () {
     cmd = fAliEnTokenInitCmd.c_str();
     cmd.append(" ");
     cmd.append(fAliEnUserName.c_str());
-    cmd.append(" ");
-//    cmd.append((  ? redirectTo.c_str() : "> /dev/null 2>&1" ));
+    cmd.append(" > /dev/null 2>&1" );
 
 //    XrdDMLogDebugFull ( "Sleeping 2 sec ..." );
     sleep ( 2 );
@@ -296,8 +295,7 @@ bool PeacAliEnQuery::TokenDestroy () {
 //    }
 
     cmd = fAliEnTokenDestroyCmd.c_str();
-    cmd.append(" ");
-//    cmd.append((  ? redirectTo.c_str() : "> /dev/null 2>&1" ));
+    cmd.append(" > /dev/null 2>&1" );
 
 //    XrdDMLogDebugFull ( "Running %s",cmd.c_str() );
     if ( system ( cmd.c_str() ) ) {
@@ -327,8 +325,7 @@ bool PeacAliEnQuery::IsProxyValid() {
 	cmd = fXrdgsiproxyCmd.c_str();
 	cmd.append(" -e -valid ");
 	cmd.append(fRenewCertificateTime.c_str());
-
-//	cmd.append((  ? redirectTo.c_str() : " > /dev/null 2>&1" ));
+	cmd.append(" > /dev/null 2>&1" );
 
 	//    XrdDMLogDebugFull ( "Running %s",cmd.c_str() );
 	if ( system ( cmd.c_str() ) ) {
@@ -367,8 +364,7 @@ bool PeacAliEnQuery::ProxyInit () {
 		cmd.append(fCertificateDir.c_str() );
 		cmd.append("/userkey.pem" );
 	}
-
-//	cmd.append((  ? redirectTo.c_str() : " > /dev/null 2>&1" ));
+	cmd.append(" > /dev/null 2>&1" );
 
 	//	XrdDMLogDebugFull ( "Running %s",cmd.c_str() );
 	//	XrdDMLogGInfo ( "Running %s",cmd.c_str() );
@@ -381,50 +377,6 @@ bool PeacAliEnQuery::ProxyInit () {
 	return true;
 }
 
-//int PeacAliEnQuery::DoSetAliEnVariables() {
-//
-//
-//    XrdDMLogDebugFull ( "DoSetAliEnVariables()" );
-//    string filename ( "/tmp/gclient_env_" );
-//    char uid[10];
-//    sprintf ( uid, "%u", getuid() );
-//    filename.append ( uid );
-//    XrdDMLogDebugFull ( "DoSetAliEnVariables %s",filename.c_str() );
-//
-//    fstream file ( filename.c_str(), ios::in );
-//    if ( !file.is_open() ) {
-//        XrdDMLogGWarning ( "File %s could not be opened !!! Probably alien-token was destroyed ...", filename.c_str() );
-//        XrdDMLogWarning ( "File %s could not be opened !!! Probably alien-token was destroyed ...", filename.c_str() );
-//        return -1;
-//    }
-//    size_t found;
-//    string str="", var="", val="";
-//    while ( file >> str ) {
-//
-//        found = str.find ( "export" );
-//        if ( found != string::npos ) {
-//            file >> str;
-//            found = str.find_first_of ( "=" );
-//            var = str.substr ( 0, found );
-//            val = str.substr ( found + 1, str.length() );
-//            found = val.find ( "\"" );
-//            if ( found != string::npos ) {
-//                val.replace ( 0, 1, "" );
-//                val.replace ( val.length() - 1, 1, "" );
-//            }
-//            found = var.find ( "LD_LIBRARY_PATH" );
-//            if ( ! ( found != string::npos ) ) {
-//                setenv ( var.c_str(), val.c_str(), 1 );
-//            }
-//            XrdDMLogDebugFull ( "DoSetAliEnVariables %s %s",var.c_str(), val.c_str() );
-//        }
-//
-//    }
-//    file.close();
-////     system("export");
-//    return 0;
-//}
-//
 //void PeacAliEnQuery::CallAliEnTimeout ( int i ) {
 //
 //    alarm ( 0 );
