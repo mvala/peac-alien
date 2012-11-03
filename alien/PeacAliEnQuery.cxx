@@ -32,61 +32,15 @@ void PeacAliEnQuery::Print() const {
 	printf("\t%20s = %-20s\n","AliEnTokenInfoCmd",fAliEnTokenInfoCmd.data());
 	//	printf("\t%20s = %-20s\n","AliEnCpCmd",fAliEnCpCmd.data());
 }
-//
-//int PeacAliEnQuery::DoAuthenticate ( bool  ) {
-//
-//    fDoAuthenticate = true;
-//    XrdDMLogDebugFull ( "AliEn DoAuthenticate(%d)",fDoAuthenticate );
-//
-//    int retVal=0;
-//
-//    if ( fDoAuthenticate ) {
-//        XrdDMLogDebugFull ( "AliEn DoAliEnTokenInit(%d)", );
-//        retVal =  DoAliEnTokenInit (  );
-//        if ( retVal ) {
-//            string tmpStrInfo = "xrddm [";
-//            tmpStrInfo.append(fFileNameFrom.data());
-//            tmpStrInfo.append("] AliEn token is FAILED !!! ");
-//            XrdDMLogGError ( tmpStrInfo.data());
-//            XrdDMLogGError ( "Error DoAuthenticate::DoAliEnTokenInit !!! " );
-//            return 1;
-//        } else {
-//
-//            string tmpStrInfo = "xrddm [";
-//            tmpStrInfo.append(fFileNameFrom.data());
-//            tmpStrInfo.append("] AliEn token is OK !!! ");
-//            XrdDMLogGInfo ( tmpStrInfo.data());
-//        }
-//    }
-//
-//    DoSetAliEnVariables();
-//
-////     if (ConnectToAliEn()) return 3;
-//    // it will be handled by fIsAliEnConnected variable
-//    ConnectToAliEn();
-//    return retVal;
-//}
-//
-//int PeacAliEnQuery::FillListOfFileNamesFrom ( string fname ) {
-//
-//    return FillListOfFileNamesFromAliEnUsingWhereis ( fname );
-//}
-//
-int PeacAliEnQuery::FillListOfFileNamesFromAliEnUsingWhereis ( string fname ) {
-
-
-//    if ( fListOfFileNamesFrom.size() >0 ) {
-//        XrdDMLogDebugFull ( "fListOfFileNamesFrom already filled with size %d. Skipping...",fListOfFileNamesFrom.size() );
-//        return fListOfFileNamesFrom.size();
-//    }
+int PeacAliEnQuery::FillListOfFileNamesFromAliEnUsingWhereis ( string fname ,vector<string> &paths) {
 
     if ( !fAliEn ) {
 //        XrdDMLogError ( "fAliEn is null!!!! Skipping..." );
-        return 1;
+        return -11;
     }
     if ( !fIsAliEnConnected ) {
 //        XrdDMLogError ( "No AliEn connection available!!!!! Skipping..." );
-        return 2;
+        return -12;
     }
     string alienfilename = fname.c_str();
 //    string alienfilename = GetXrdFilename ( fname.c_str() );
@@ -117,7 +71,7 @@ int PeacAliEnQuery::FillListOfFileNamesFromAliEnUsingWhereis ( string fname ) {
         str.append(fname.c_str());
         str.append("] No replicas in AliEn catalogue. File not found");
 //        XrdDMLogGError ( str.data());
-        return 101;
+        return -13;
     }
 
     string currFileStr,grpath;
@@ -135,10 +89,11 @@ int PeacAliEnQuery::FillListOfFileNamesFromAliEnUsingWhereis ( string fname ) {
 //            fListOfFileNamesFromGR.push_back ( grpath );
 //             break;
 //        }
-        printf ( "AliEn whereis : file ->  %s ...\n",currFileStr.c_str() );
+//        printf ( "AliEn whereis : file ->  %s ...\n",currFileStr.c_str() );
+        paths.push_back(currFileStr);
 //        fListOfFileNamesFrom.push_back ( currFileStr );
     }
-    return numberOfReplicas;
+    return 0;
 }
 
 int PeacAliEnQuery::ConnectToAliEn() {

@@ -37,7 +37,7 @@ public:
     // alien stuff
     int           ConnectToAliEn();
 
-    int           FillListOfFileNamesFromAliEnUsingWhereis ( string fname );
+    int           FillListOfFileNamesFromAliEnUsingWhereis ( string fname , vector<string> &paths);
 
 
     void SetUser(const char* user) { fAliEnUserName = user; }
