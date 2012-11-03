@@ -76,7 +76,7 @@ int main ( int argc, char **argv ) {
 	}
 
 	if (fileName.empty()) {
-		printf("Error No file specified !!!\n\n");
+		printf("\nError : No file specified !!!\n\n");
 		help();
 		return 1;
 	}
