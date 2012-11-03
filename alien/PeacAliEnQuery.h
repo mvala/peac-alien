@@ -39,6 +39,9 @@ public:
 
     int           FillListOfFileNamesFromAliEnUsingWhereis ( string fname , vector<string> &paths);
 
+    int           TryGetLockAliEnToken();
+    void          ReleaseLockAliEnToken( int fd);
+
 
     void SetUser(const char* user) { fAliEnUserName = user; }
 //
@@ -65,6 +68,7 @@ private:
     string          fAliEnTokenInitCmd;
     string          fAliEnTokenDestroyCmd;
     string          fAliEnTokenInfoCmd;
+    string 			fAliEnTokenLockFileName;
 //    string          fAliEnCpCmd;
 
 //    unsigned int    fAliEnTimeout;
