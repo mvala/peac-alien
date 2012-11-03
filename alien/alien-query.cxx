@@ -8,7 +8,8 @@ using namespace std;
 void help() {
 	printf("Help :\n");
 	printf("\t -u <username> : username used in alien-token-init\n");
-	printf("\t -rd           : remove duplicate paths\n");
+	printf("\t -rmdupli      : remove duplicate paths\n");
+	printf("\t -rand         : randomize paths' order\n");
 	printf("\t -t            : test file (user's path is ignored) \n");
     printf("\t -d <num>      : debug level\n");
 	printf("\t                 0-silent, 1-std(default), >=2-debug\n");
@@ -24,6 +25,7 @@ int main ( int argc, char **argv ) {
 	int debug = 1;
     vector<string> paths;
     bool removeDoubles = false;
+    bool randomizePaths = false;
 
     bool debugArgs=false;
 	string argStr;
@@ -33,8 +35,10 @@ int main ( int argc, char **argv ) {
 		if (!argStr.compare("-h")) {
 			help();
 			return 255;
-		} else if (!argStr.compare("-rd")) {
+		} else if (!argStr.compare("-rmdupli")) {
 			removeDoubles = true;
+		} else if (!argStr.compare("-rand")) {
+			randomizePaths = true;
 		} else if (!argStr.compare("-t")) {
 			fileName="/alice/cern.ch/user/p/proof/xrddmtest.zip";
 		} else if (!argStr.compare("-d")) {
@@ -97,7 +101,9 @@ int main ( int argc, char **argv ) {
 		if (ret) printf("[Error] alien-query : Error doing query of %s !!! [rc=%d]\n",fileName.data(),abs(ret));
 		else {
 
-			if (removeDoubles) paths.erase( unique( paths.begin(), paths.end() ), paths.end() );
+			if (removeDoubles) paths.erase(unique(paths.begin(),paths.end()), paths.end());
+			if (randomizePaths) random_shuffle(paths.begin(),paths.end());
+
 			for (int i=0; i<paths.size(); i++)
 			printf("%s\n",paths.at(i).data());
 		}
