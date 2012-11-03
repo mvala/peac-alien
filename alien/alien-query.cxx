@@ -12,7 +12,7 @@ void help() {
 	printf("\t -rand         : randomize paths' order\n");
 	printf("\t -t            : test file (user's path is ignored) \n");
     printf("\t -d <num>      : debug level\n");
-	printf("\t                 0-silent, 1-std(default), >=2-debug\n");
+	printf("\t                 0-silent(default), 1-std, >=2-debug\n");
 	printf("\n");
 }
 
@@ -22,7 +22,7 @@ int main ( int argc, char **argv ) {
 
 	string fileName="";
 	string username="proof";
-	int debug = 1;
+	int debug = 0;
     vector<string> paths;
     bool removeDoubles = false;
     bool randomizePaths = false;
