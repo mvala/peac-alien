@@ -8,15 +8,16 @@
 #include "PeacAliEnQuery.h"
 
 PeacAliEnQuery::PeacAliEnQuery() :
-		fRenewCertificateTime("1:00"), fCertificateDir(""), fAliEnUserName(
-				"proof"), fXrdgsiproxyCmd(ALIEN_XRDGSIPROXY), fAliEnTokenInitCmd(
-				ALIEN_ALIEN_TOKEN_INIT), fAliEnTokenDestroyCmd(
-				ALIEN_ALIEN_TOKEN_DESTROY), fAliEnTokenInfoCmd(
-				ALIEN_ALIEN_TOKEN_INFO),
-//        fAliEnCpCmd ( ALIEN_ALIEN_CP ),
-//        fAliEnTimeout ( 120 ),
-		fAliEn(0), fIsAliEnConnected(false), fAliEnTokenLockFileName(
-				"/tmp/alien-query-token.lock")
+fRenewCertificateTime("1:00"),
+fCertificateDir(""),
+fAliEnUserName("proof"),
+fXrdgsiproxyCmd(ALIEN_XRDGSIPROXY),
+fAliEnTokenInitCmd(ALIEN_ALIEN_TOKEN_INIT),
+fAliEnTokenDestroyCmd(ALIEN_ALIEN_TOKEN_DESTROY),
+fAliEnTokenInfoCmd(ALIEN_ALIEN_TOKEN_INFO),
+fAliEn(0),
+fIsAliEnConnected(false),
+fAliEnTokenLockFileName("/tmp/alien-query-token.lock")
 //
 {
 }
@@ -195,7 +196,8 @@ int PeacAliEnQuery::ConnectToAliEn() {
 int PeacAliEnQuery::DoAliEnTokenInit() {
 
 	if (!IsProxyValid()) {
-		printf("XrdGsiProxy is not valid!!!\n");
+//		printf("XrdGsiProxy is not valid!!!\n");
+		remove(fAliEnTokenLockFileName.data());
 		if (!ProxyInit()) {
 			printf("XrdGsiProxy init didn't finish OK !!!\n");
 			return 1;

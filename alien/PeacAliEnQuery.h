@@ -69,9 +69,6 @@ private:
     string          fAliEnTokenDestroyCmd;
     string          fAliEnTokenInfoCmd;
     string 			fAliEnTokenLockFileName;
-//    string          fAliEnCpCmd;
-
-//    unsigned int    fAliEnTimeout;
 //
 //    static void     CallAliEnTimeout(int i);
 //
