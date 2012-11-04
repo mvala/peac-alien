@@ -1,21 +1,13 @@
-//////////////////////////////////////////////////////////////////////////
-//                                                                      //
-// xrddm                                                                //
-//                                                                      //
-// Author: Martin Vala (SASKE Slovakia and JINR, Russia, 2010)          //
-//                                                                      //
-// A xrdcp-like command line tool for copying from alien                //
-//                                                                      //
-//////////////////////////////////////////////////////////////////////////
-
-#ifndef PeacAliEnQuery_h
-#define PeacAliEnQuery_h
+#ifndef PeacAliEnQuery_H
+#define PeacAliEnQuery_H
 
 #include <string>
-using namespace std;
-#include <gapiUI.h>
+
 #include <PeacAliEnConfig.h>
 
+using namespace std;
+
+class GapiUI;
 class PeacAliEnQuery {
 
 public:
@@ -34,56 +26,30 @@ public:
     bool          TokenDestroy ();
     int           DoAliEnTokenInit ();
 
-    // alien stuff
-    int           ConnectToAliEn();
-
-    int           FillListOfFileNamesFromAliEnUsingWhereis ( string fname , vector<string> &paths);
-
+    // lock function for alien-token-init (so it is done only once)
     int           TryGetLockAliEnToken();
     void          ReleaseLockAliEnToken( int fd);
 
+    // alien stuff
+    int           ConnectToAliEn();
 
-    void SetUser(const char* user) { fAliEnUserName = user; }
-//
-//    virtual int       DoAuthenticate ( bool showProcess );
-//
-//    virtual int       DoCopyPre ( string from, string to );
-//    virtual int       DoCopyWithType ( EInputTypes_t type, string from, string to );
-//    virtual int       DoCopyPost ( string from, string to );
-//
-//    void          SetCertificateDir ( string certDir ) { fCertificateDir = certDir; }
-//
-//
-//protected:
-//    virtual int       FillListOfFileNamesFrom ( string fname );
-//    virtual int       SetConfigOptions ( string var, string val );
-//    virtual EInputTypes_t   GetInputTypeId ( string inputTypeString = "std" );
-//
+    // Generating list of replicas from AliEn catalogue
+    int           FillListOfFileNamesFromAliEnUsingWhereis ( string fname , vector<string> &paths);
+
+    // setters
+    void SetUser(const char* user) { mAliEnUserName = user; }
+
 private:
-    string          fRenewCertificateTime;
-    string          fCertificateDir;
-    string          fAliEnUserName;
-//
-    string          fXrdgsiproxyCmd;
-    string          fAliEnTokenInitCmd;
-    string          fAliEnTokenDestroyCmd;
-    string          fAliEnTokenInfoCmd;
-    string 			fAliEnTokenLockFileName;
-//
-//    static void     CallAliEnTimeout(int i);
-//
-    GapiUI          *fAliEn;
-    bool            fIsAliEnConnected;
-//
-    // Authentication: check for token and proxy validity, and renew them
-
-//public:
-//
-//    int           DoSetAliEnVariables();
-//
-
-//
-//    int           DoAliEnCp ( string from,string to );
+    string          mRenewCertificateTime;
+    string          mCertificateDir;
+    string          mAliEnUserName;
+    string          mXrdgsiproxyCmd;
+    string          mAliEnTokenInitCmd;
+    string          mAliEnTokenDestroyCmd;
+    string          mAliEnTokenInfoCmd;
+    string 			mAliEnTokenLockFileName;
+    GapiUI         *mAliEn;
+    bool            mIsAliEnConnected;
 };
 
 #endif // PeacAliEnQuery_H

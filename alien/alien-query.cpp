@@ -7,7 +7,7 @@ using namespace std;
 
 void help() {
 	printf("Help :\n");
-	printf("\t -u <username> : username used in alien-token-init\n");
+	printf("\t -u <userName> : userName used in alien-token-init\n");
 	printf("\t -rmdupli      : remove duplicate paths\n");
 	printf("\t -rand         : randomize paths' order\n");
 	printf("\t -t            : test file (user's path is ignored) \n");
@@ -21,7 +21,7 @@ int main ( int argc, char **argv ) {
 	int ret = 0;
 
 	string fileName="";
-	string username="proof";
+	string userName="proof";
 	int debug = 0;
     vector<string> paths;
     bool removeDoubles = false;
@@ -65,8 +65,8 @@ int main ( int argc, char **argv ) {
 			} else {
 				argStr = "";
 			}
-			if (argStr.empty()) argStr = username;
-			username = argStr.data();
+			if (argStr.empty()) argStr = userName;
+			userName = argStr.data();
 			if (debugArgs) printf(" %s",argStr.data());
 		}
 		else {
@@ -82,7 +82,7 @@ int main ( int argc, char **argv ) {
 	}
 
 	PeacAliEnQuery alienQuery;
-	alienQuery.SetUser(username.data());
+	alienQuery.SetUser(userName.data());
 	if (debug>2) alienQuery.Print();
 	if (alienQuery.DoAliEnTokenInit()>0) {
 		printf("Error : Error doing AliEn token !!!\n");

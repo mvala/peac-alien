@@ -1,5 +1,5 @@
 set(src_SRCS 
-  PeacAliEnQuery.cxx
+  PeacAliEnQuery.cpp
 )
 set(INCLUDE_DIRECTORIES
   ${CMAKE_SOURCE_DIR}/alien
@@ -13,9 +13,9 @@ set(LINK_DIRECTORIES
 ) 
 link_directories( ${LINK_DIRECTORIES})
 
-String(REPLACE ".cxx" ".h" HDRS "${src_SRCS}")
+String(REPLACE ".cpp" ".h" HDRS "${src_SRCS}")
 
-add_executable(alien-query alien-query.cxx ${src_SRCS})
+add_executable(alien-query alien-query.cpp ${src_SRCS})
 target_link_libraries(alien-query ${ALIEN_LIB})
 
 set(INS_TARTGETS alien-query)
